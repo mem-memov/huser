@@ -1,14 +1,29 @@
-module UserRepository(findUser) where
+module UserRepository(
+  createUser,
+  findUser
+) where
 
+import Control.Monad.State
 import User
 import Repositories
 
--- createUser :: Repositories -> (User, Repositories)
--- createUser repositories = (User {userId = }, repositories)
+createUser :: State Repositories User
+createUser = state $ \repositories -> 
+  let
+    user = User {
+      userId = 0, 
+      userFirstName = FirstName "", 
+      userSecondName = SecondName "",
+      userLastName = LastName ""
+    }
+    users = userRepository repositories
+    updatedRepositories = repositories {userRepository = user : users}
+  in (user, updatedRepositories)
 
-findUser :: Int -> Repositories -> (Maybe User, Repositories)
-findUser id repositories = let 
-    users = filter (\user -> (userId user) == id) (userRepository repositories) 
-    in case users of
-        [foundUser] -> (Just foundUser, repositories)
-        _ -> (Nothing, repositories)
+findUser :: Int -> State Repositories (Maybe User)
+findUser id = state $ \repositories -> case findUsersById id (userRepository repositories) of
+  [foundUser] -> (Just foundUser, repositories)
+  _ -> (Nothing, repositories)
+
+findUsersById :: Int -> [User] -> [User]
+findUsersById id users = filter (\user -> (userId user) == id) users

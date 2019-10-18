@@ -1,11 +1,17 @@
-module User(User(..)) where
+module User(
+  FirstName(..),
+  SecondName(..),
+  LastName(..),
+  User(..)
+) where
 
 newtype FirstName = FirstName String deriving Eq
 newtype SecondName = SecondName String deriving Eq
 newtype LastName = LastName String deriving Eq
 
-data User = User { userId :: Int
-    , userFirstName :: FirstName
-    , userSecondName :: SecondName
-    , userLastName :: LastName
+data User = User { 
+  userId :: Int,
+  userFirstName :: FirstName,
+  userSecondName :: SecondName,
+  userLastName :: LastName
 } deriving Eq
