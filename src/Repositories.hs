@@ -13,7 +13,7 @@ data Repositories = Repositories {
   phoneRepository :: [Phone],
   userPhoneRepository :: [UserPhones],
   phoneUserRepository :: [PhoneUsers]
-}
+} deriving (Show)
 
 createEmptyRepositories :: Repositories
 createEmptyRepositories = Repositories { 

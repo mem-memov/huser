@@ -8,7 +8,6 @@ import Repositories
 
 main :: IO ()
 main = do
-  runStateT $ manipRepos repos
   return ()
   where repos = createEmptyRepositories
 
