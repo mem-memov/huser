@@ -8,12 +8,16 @@ import Repositories
 
 main :: IO ()
 main = do
-  -- runStateT $ manipRepos repos
+  -- let result = runState $ manipRepos repos 
   return ()
   where repos = createEmptyRepositories
 
 
-manipRepos :: State Repositories ()
+makeState :: State Repositories Repositories
+makeState = do
+  return createEmptyRepositories
+
+manipRepos :: State Repositories Repositories
 manipRepos = do 
   user <- createUser
   return ()
