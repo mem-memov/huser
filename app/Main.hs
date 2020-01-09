@@ -12,5 +12,6 @@ main = do
         user <- createUser
         return ()
       emptyRepos = createEmptyRepositories
-      repos = snd $ (runState repoState) emptyRepos
+      modifyRepos = runState repoState
+      repos = snd $ modifyRepos emptyRepos
   return ()
