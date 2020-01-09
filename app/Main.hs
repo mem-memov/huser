@@ -11,5 +11,6 @@ main = do
   let repoState = do
         user <- createUser
         return ()
-      repos = snd $ (runState repoState) createEmptyRepositories
+      emptyRepos = createEmptyRepositories
+      repos = snd $ (runState repoState) emptyRepos
   return ()
